@@ -1,0 +1,23 @@
+\subsection{Notations of the Sub-problem}
+\label{sub-problem}
+In order to formulate the sub-problem, we need to give the corresponding notations. We assume that we now have a set of parallel jobs in the task pool $\mathcal{K} = \{1,2,\cdots,K\}$ to schedule. There are $J$ DCs which are denoted by $\mathcal{D} = \{1,2,\cdots,J\}$ and the number of idle slots in DC $j\in\mathcal{D}$ is $a_j$. Besides, each job $k\in\mathcal{K}$ has a set of tasks $\mathcal{T}_k = \{1,2,\cdots,n_k\}$. The set of the source DCs of task $i$ of job $k$ is $S_i^k$. If the source DC is $s$, the corresponding amount of data is $d_i^{k,s}$. Then, we denote the data transferring time and executing time of task $i$ of job $k$ when it is assigned to DC $j$ as $c_{i,j}^k$ and $e_{i,j}^k$ respectively and the bandwidth from DC $s$ to DC $j$ is $b_{s,j}$. From our previous assumption, we have
+\begin{equation}
+    c_{i,j}^k = \max_{s\in S^k_i} \frac{d_{i}^{k,s}}{b_{s,j}}
+\end{equation}
+
+If we define $x_{i,j}^k$ that indicates whether task $i$ of job $k$ is assigned to DC $j$, because every task of one job are dependency-free, we have the completion time of job $k$ is
+\begin{equation}
+    \tau_k = \max_{i\in\mathcal{T}_k,j\in \mathcal{D}} x_{i,j}^k(c_{i,j}^k+e_{i,j}^k)
+\end{equation}
+
+One task can be assigned to one and only one DC and each DC has limited slots, so we can derive an optimization problem where $lexmin$ is defined in \cite{LP-paper}.
+\begin{align}
+    \textbf{lexmin}_{x} \quad& \mathbf{f} = (\tau_1,\tau_2,\cdots,\tau_k)\\
+    s.t. \quad & \tau_k = \max_{i\in\mathcal{T}_k,j\in \mathcal{D}} x_{i,j}^k(c_{i,j}^k+e_{i,j}^k),\forall k\in\mathcal{K}\\
+    &\sum_{k\in\mathcal{K}}\sum_{i\in\mathcal{T}_k} x_{i,j}^k\le a_j, \forall j \in \mathcal{D}\\
+    &\sum_{j\in\mathcal{D}}x_{i,j}^k = 1,\forall i \in\mathcal{T}_k,\forall k\in\mathcal{K}\\
+    & x_{i,j}^k \in \{0,1\}, \forall i \in \mathcal{T}_k,\forall{j}\in\mathcal{D},\forall k \in \mathcal{K}
+\end{align}
+
+According to the definition of \emph{lexmin}, we can solve this optimization problem using the algorithm in (\ref{max-min}) to maintain max-min fairness.
+% \newpage

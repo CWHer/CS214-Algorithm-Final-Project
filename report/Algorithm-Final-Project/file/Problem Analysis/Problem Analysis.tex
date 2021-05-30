@@ -1,0 +1,12 @@
+\subsection{Problem Definition}\label{section:prblem definition}
+% \subsubsection{Definition of Data Transmitting Across DCs}
+~\par
+
+\subsubsection{Definition of Max-min Fairness}
+\label{max-min}
+~\par
+At every beginning, we defined the shared computation resource as the bandwidth between every two DCs. However, if we add this constraint, a large number of existing graph algorithms will not be available and it become a linear programming problem, which increases the overall complexity. Besides, each task will flow through multiple DCs, and we have not clearly defined the bottleneck of each task on the path.
+
+As a result, we refer to \cite{LP-paper} and propose a new understanding of max-min fairness. First, we find an arrangement strategy which minimize the completion time $t_i$ of the slowest task and get a completion time array $<t_1,t_2,\cdots,t_n>$. Then, we do the relaxation. We set the completion time of all tasks that belong to the same job as the slowest task to $t_i$ and fix it. After that, we try to minimize the second slowest task. Repeat the above process until all tasks are minimized or relaxed. 
+
+Under this definition, the shared computation resource can be viewed as all the available slots. The bottleneck of each job is the slowest task among these jobs. Thus, this algorithm satisfy the general definition of max-min fairness.

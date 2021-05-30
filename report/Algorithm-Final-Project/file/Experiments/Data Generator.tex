@@ -1,0 +1,13 @@
+\subsection{Data Generation and Performance Analysis}\label{data generator}
+\subsubsection{Brief Introduction of Generator}
+~\par
+In order to make comparison with toy data, we do not modify the links between DCs. The whole generator is divided into three parts. First, for each job, a DAG composed of tasks is generated. Secondly, for each task, the data it depends on is generated. Finally, the data is distributed to each DC.
+\subsubsection{Generator Implement Details}
+~\par
+To generate jobs, we should determined how many tasks each job has. From \cite{OSC}, we know that there are about 80\% jobs are short jobs and 20\% jobs are long jobs. For short jobs, the number of tasks $n\sim max(2,N(4,25))$. For long jobs, $n\sim max(10,N(20,100))$. Each job has an executing time $t\sim max(1,N(3,4))$.
+
+After that, we generate DAG by numbering the nodes in the graph, and build an edge from a small number node to a large number node with a probability of 0.4. The larger number node will require more sets of data and the amount of one set of data required by each task in each DC $s\sim max(50,N(400,160000))$, which is basically consistent with the toy data. When assigning these data to DCs, we put the adjacent 4 data into one DC, which is easy to understand because the data used by one jobs should be centralized to some extent.
+
+\input{file/Experiments/overview}
+
+\input{file/Experiments/Instance Analysis}

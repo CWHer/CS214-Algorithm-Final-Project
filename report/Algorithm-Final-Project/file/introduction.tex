@@ -1,0 +1,12 @@
+\section{Introduction}
+Nowadays, there are countless bytes of data generated every second. In order to make best use of these data, we build datacenters (DC) which are distributed across the world and process data by running data analytic jobs in the slots of DCs. Thus, we need to design a strategy to arrange these jobs to minimize the overall run time so that the throughput of the whole system can be optimized. However, to solve this problem, we will encounter several challenges as below.
+\begin{enumerate}
+    \item Each job is composed of several computation stages among which there are precedence constraints, which can be described in a directed acyclic graph (DAG). As a result, the tasks in different stages can not be arranged simultaneously. Also, the arrangement of the previous step may influence the available slots and arrangement of the next stage.
+    \item The data on which one job depends are geographically dispersed and the bandwidth between two DCs is limited. In addition, the topology of the network is not necessarily fully connected, which means data should be transmitted between DCs.
+    \item The number of slots in each DC is limited, which means tasks may have to wait after it is ready for running.
+    \item In addition to minimize the average completion time of all jobs, we have to maintain \emph{max-min fairness}. However, these two optimization objectives are in contradictory to some extend.
+\end{enumerate}
+
+To address these challenges, we designed a multi-module scheduling model (Fig. \ref{Fig-Flowchart}), which consists of a DAG scheduler, a dependency-free task scheduler and a simulator to emulate a real production environment with multiple DCs. Our overall strategy is stage-wide greedy, i.e. we keep the average completion time of each stage as short as possible to make the total completion time as short as possible. Here, we use the DAG scheduler to get the tasks for each stage which are dependency-free. To achieve a fair scheduling algorithm, Chen \emph{et al.} \cite{LP-paper} have proposed a linear-programming-based approach. We extract the core idea from it and give a network-flow-based approach to achieve similar results.
+\input{figure/Fig-FlowChart}
+% \input{file/Introduction/sample}

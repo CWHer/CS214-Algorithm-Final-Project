@@ -1,0 +1,13 @@
+\begin{abstract}\vspace{-5mm}
+In this paper, we focus on solving multi-job scheduling problem among geographically distributed data centers. We design different algorithms to assign tasks of jobs to datacenters based on the execute time, resource transmit time and dependence among them, in order to get minimal finishing time.
+
+Unfortunately, this problem is proved to be a NP-Complete problem, which indicates the difficulty of finding the optimal solution in polynomial time. Thus, we divide the problem into many stages so that we can apply our algorithms to some dependency-free tasks in each stage to obtain a approximate optimal solution.
+
+We first propose some greedy based algorithms, they are \textbf{Greedy Approach},\textbf{K-Greedy Approach} and \textbf{Network-Flow-Based Greedy Approach}.
+
+Then, we focus on the max-min fairness of the solution. and propose \textbf{Network-Flow-Based Fair Approach} to achieve this.
+
+Finally, we compare the performance of all these algorithms. To better understand the difference between them, we implement a data generator and compare the performance of them under numerous data instances.
+
+\textbf{Keywords:} \textbf{multi-job scheduling problem, max-min fairness, Network-Flow Based Algorithm}.
+\end{abstract}

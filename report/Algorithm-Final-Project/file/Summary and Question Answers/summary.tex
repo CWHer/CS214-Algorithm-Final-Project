@@ -1,0 +1,10 @@
+\subsection{Summary}
+In paper, we have completed several jobs and acquired many conclusions.
+Firstly, we divide the whole problem into several parts and define them separately. Then we completely define the whole problem and get the target of our jobs.\\
+Secondly, we realize the hardness of this problem, we try to find the type of it. Then we successfully prove the NP-Completeness of this job from the $\textbf{3-SAT}$ problem.\\
+After specifying the NP-Completeness of this problem, we give up the idea of finding the optimal solution and begin to reach a better solution. So we propose 3 algorithms \textbf{Greedy Approach} and \textbf{K-Greedy Approach}.\\
+Moreover, in order to optimize our algorithm, we propose a concept, max-min fairness. That is because we need to assign the jobs globally rather than consider part optimal. We manage to minimal the maximal finish time of all jobs to optimize the solution. As a result, we proposed \textbf{Network-Flow-Based Greedy Approach}.\\
+Lastly, we wonder the performance of them. First we implement them on the toy data. Then we construct a data generator to generate more data instances. We test all of the algorithms in these numerous data and get the conclusion.\\
+After comparing the performance of these algorithms, we find all of them can optimize the solutions. However, the \textbf{Network-Flow-Based Fair Approach} has more chances to reach a better solution, and its stability and deviation among jobs time performs also better than others, because it focus on the max-min fairness.\\
+Moreover, we also find the advantages of the algorithms in different conditions. If the capacity of DC slots is large, the greedy type{greedy and  k-greedy} algorithms always performs better. While in other conditions, when it has tight constraint of capacity in slots and during transmitting, the Network-Flow-Based type will be better, especially the Network-Flow-Based Fair Approach.\\
+As a results, we should implement different algorithms based on the data instance. And if we are not clear or the input data is random, the Network-Flow-Based Fair Approach has better performance in general. 

@@ -1,0 +1,20 @@
+\subsection{Question Answers}
+\begin{enumerate}
+    \item $\textbf{Q1:}$Formalize the multi-job scheduling problem with notations. Especially, formalize the max-min fairness on computation resource in this problem\\
+    $\textbf{Answers:}$The definition of the multi-job scheduling problem is in problem definition in section ~\ref{section:prblem definition}. ~\par~\par
+     \item $\textbf{Q2:}$How hard is this problem? Is it in P, or NP, or NP-Complete?\\
+    $\textbf{Answers:}$The problem is an NP-Complete problem, for more proof details please refer to section ~\ref{section:npc}. ~\par~\par
+     \item $\textbf{Q3:}$Please design an algorithm for this problem and analyze its complexity.\\
+    $\textbf{Answers:}$We have designed 4 algorithms to solve the problem and also designed a random algorithm as a contrast(or baseline) to evaluate these algorithms. Four algorithms are 
+    \begin{enumerate}
+        \item \textbf{Greedy Approach}[\ref{Greedy Approach}]
+        \item \textbf{K-Greedy Approach}[\ref{k-Greedy Approach}]
+        \item \textbf{Network-Flow-Based Greedy Approach}[\ref{NFBGA}]
+        \item \textbf{Network-Flow-Based Fair Approach}[\ref{NFBFA}]
+    \end{enumerate}
+    Each of them has its own characteristics. For more details and complexity of these algorithms, please refer to section ~\ref{schedule algorithm}~\par~\par
+    \item $\textbf{Q4:}$Test you algorithm on the attached toy data. Visualize your result to illustrate your design of algorithm if possible.\\
+    $\textbf{Answers:}$ The test results and analysis are all in Experiment parts, please refer to section ~\ref{Toy Data}.~\par~\par
+    \item $\textbf{Q5:}$Test the efficiency of your design by simulations. You can collect data from open-source websites or generate data based on your understanding of the problem. If you collect data, please state where you find it and explain why it is suitable for testing. If you generate data, please briefly explain how you generated data based on your assumptions.\\
+    $\textbf{Answers:}$ We choose to generate data. For more generating details please refer to section ~\ref{data generator}. And we test our design and also show the results in section ~\ref{data generator}
+\end{enumerate}

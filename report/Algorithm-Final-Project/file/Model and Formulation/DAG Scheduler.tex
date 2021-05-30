@@ -1,0 +1,4 @@
+\subsection{DAG Scheduler}
+DAG scheduler extracts nodes with no in-node degree from the graph and submits them to the task pool. When it receives the finished tasks from simulator, it should update the DAG correspondingly. In fact, to realize these two functions, we just need to maintain the successor nodes and the in-node degrees of each node. When we need to update the DAG, we just need to decrement the in-node degree of the successor nodes of each finish task.
+
+\textbf{Time Complexity.} Using amortized analysis, it is $O(1)$ for each task.

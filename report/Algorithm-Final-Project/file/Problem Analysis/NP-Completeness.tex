@@ -1,0 +1,105 @@
+
+\subsection{Brief Introduction}
+In order to prove this problem to be an NP-Complete problem, we need to introduction 3 new problems,\\$\textbf{P1,P2,P3}$.
+\begin{enumerate}
+    \item $\textbf{P1}~\emph{Single Execution Time Scheduling}:$ \\ 
+    Given a set $\mathbb{S}$ of $n$ tasks, a partial order $\prec$ on $\mathbb{S}$,  a number of processors $k$ and a time limit $t$, does there exist 
+    a total function $\mathbf{f}$ from $\mathbb{S}$ to $\{0, 1,..., t - 1\}$ such that
+    \begin{enumerate}
+        \item if $J\prec J'$ then  $f(J)+1\le f(J')$.
+        \item for each $J$ in $\mathbb{S}$, $f(J)  \le t-1$.
+        \item for each $i, 0\le i< t$, there are at most $k$ values of $J$ for which $f(J)=i$.
+    \end{enumerate}
+    \item $\textbf{P2}~\emph{Single Execution Time Scheduling with variable number of processors}:$ \\ 
+    Given a set $\mathbb{S}$ of $n$ tasks, a partial order $\prec$ on $\mathbb{S}$, a time limit $t$ and a sequences of integers$\{c_0,c_1\dots c_{t-1}\}$satisfies $\sum\limits_{i=0}^{t-1}c_i=n$ represents the number of processors in every time, does there exist 
+    a total function $\mathbf{f}$ from $\mathbb{S}$ to $\{0, 1,..., t - 1\}$ such that
+    \begin{enumerate}
+        \item if $J\prec J'$ then  $f(J)+1\le f(J')$.
+        \item for each $J$ in $\mathbb{S}$, $f(J) \le t-1$.
+        \item for each $i, 0\le i< t$, there are $c_i$ values of $J$ for which $f(J)=i$.
+    \end{enumerate}
+    % \item $\textbf{P1}~\emph{Single Execution Time Scheduling}:$ \\ 
+    \item $\textbf{P3}~\emph{3-SAT}:$\\
+    Given a set of literals $\mathbb{X}=\{x_i,\overline{x_i}\}, 1 \le i \le n,x_i=\neg\Bar{x_i}$ and a collection of clause
+$C_t=x_j\vee x_k\vee x_l,1\le t\le n$ that satisfies $x_j,x_k,x_l=x_i~or~\Bar{x_i}$,does there exist a map $f$ from $\mathbb{X}$ to  $\{\textbf{True},\textbf{False}\}$ satisfies that $\forall t, C_t=\textbf{True}$. 
+\end{enumerate}
+ Then we prove $\textbf{P3}\preceq_p \textbf{P2}\preceq_p\textbf{P1}$.\\As for $\textbf{P1,P2}$,given an scheduling sequences, we can easily determine whether the result $\le t$, so $\textbf{P1,P2}$ are both NP problem. And since we have known $P3$ is an NP-Complete problem, we get $P1$ is also an NP-Complete problem.\\
+ If we constrain the time of each task to be 1,the number of jobs to be 1 and do not need any resource(or transmit time to be 0) for problem $\textbf{P1}$.Then we know 123456 is an NP-Complete problem.
+\subsection{Proof of $\textbf{P2}\preceq_p \textbf{P1}$}
+As for given problem $\textbf{P2}$,we have $\mathbb{S}$ of $n$ jobs, limits $t$ and sequences $\{c_0,c_1\dots c_{t-1}\}$. Then we construct a new problem as $\textbf{P1}$.
+\begin{enumerate}
+    \item Let $n=\sum\limits_{k=0}^{t-1}c_k$
+    \item Add new tasks $J_{i,j}$ with $0\le i\le t-1,0\le j\le n-c_i$ into $\mathbb{S}$.
+    \item Add partial order to new tasks. For $\forall J_{i_1,j_1}, J_{i_2,j_2}$,if $i_1\le i_2$, then let $J_{i_1,j_1}\preceq J_{i_2,j_2}$.
+    \item Let the number of processors to be $c$.
+\end{enumerate}
+Because of the constraint between new tasks, there are $t$ levels, so we must assign the $J_{i,j}$ at time $i$.Otherwise, assume $f(J_{i,j})=k$ and $i\neq k$,
+\begin{enumerate}
+    \item If $i>k$, assume $J_{i,j}$ be the earliest task that $i>k$, then $\exists J_{i-1,j'}$,from the assumption that $f(J_{i-1,j'})=i-1\ge k$. So $f(J_{i,j})\le f(J_{i-1,j'})$ which is against problem requirement.
+    \item If $i<k$, assume $J_{i,j}$ be the latest  task that $i<k$, then there $\exists J_{i+1,j'}$,from the assumption that $f(J_{i+1,j'})=i-1\le k$. So $f(J_{i,j})\ge f(J_{i+1,j'})$ which is against problem requirement.
+\end{enumerate}
+Then after we assign all new tasks, the remain processors at time $i$ is $n-(c-c_i)=c_i$,so there are at most $c_i$ values of $J$ for which $f(J)=i$. However,$\sum\limits_{i=0}^{t-1}c_i=n$, which means we must assign $c_i$ tasks at time $i$,otherwise we cannot finish all tasks at time $t$.As a result, there are $c_i$ values of $J$ for which $f(J)=i$,so the new problem is a $\textbf{P1}$ problem,and the original and new problem are equal.
+\subsection{Proof of $\textbf{P3}\preceq_p \textbf{P2}$}
+As for given problem $\textbf{P3}(\emph{3-SAT})$, assume there are $m$ variables($2m$ literals)$\{x_i,\overline{x_i}\}$ and $n$ clauses $\{D_j\}$.We construct a new problem as $\textbf{P2}$.
+\begin{enumerate}
+    \item Task set $\mathbb{S}$.
+    \begin{equation}
+    \begin{aligned}
+        \mathbb{S}~&=\mathbb{X'\cup Y'\cup D'}\\
+        \mathbb{X'}&=\bigcup_{\substack{1\le i\le m\\ 1\le j\le m}}\{x_{i,j},\overline{x}_{i,j}\}\\
+        \mathbb{Y'}&=\bigcup_{1\le i\le m}\{y_i,\overline{y}_i\}\\
+        \mathbb{D'}&=\bigcup_{\substack{1\le i\le n\\ 1\le j\le 7}}\{D_{i,j}\}
+    \end{aligned}
+    \end{equation}
+    \item Relation $\prec$\\
+    \begin{enumerate}
+        \item $x_{i,j}\prec x_{i,j+1}, \overline{x}_{i,j}\prec \overline{x}_{i,j+1}$,for $1\le i\le m, 1\le j\le m$.
+        \item $x_{i,i-1}\prec y_{i},\overline{x}_{i,i-1}\prec \overline{y}_{i}$, for $1\le i\le m, 1\le j\le m$.
+        % \item $y_{i-1}\prec y_{i},\overline{y_{i-1}}\prec \overline{y_{i}}$
+        \item
+        For a random literals $z_i=x_i~or~\overline{x_i}$ and a boolen value $a\in\{0,1\}$, we define 
+        \begin{equation}
+            \begin{aligned}
+            a\odot z_i=\left\{\begin{array}{lr}
+             z_i(=x_i~or~\overline{x_i})~~~~~~~~~~if~a=1\\
+             \overline{z_i}(=\overline{x_i}~or~x_i)~~~~~~~~~~if~a=0\\
+             \end{array}\right.
+            \end{aligned}
+        \end{equation}
+         For task $D_{i,j}$, since $j\le 7$,assume $j=a_1*4+a_2*2+a_3,a_i\in\{0,1\},1\le i\le 3$. \\
+        From the \textbf{3-SAT} problem, assume $D_i=z_{b_1}\vee z_{b_2}\vee z_{b_3}$ that $z_{b_k}=x_{b_k}~or~\overline{x_{b_k}}$. If $z_{b_k}=x_{b_k}$, let $z_{{b_k},j}$ refer to the task $x_{{b_k},j}$,else let $z_{{b_k},j}$ refer to the task $\overline{x}_{{b_k},j}$, $1\le k \le 3$\\
+        Then we add relation $\prec$ that
+        \begin{equation}
+            a_{k}\odot z_{{b_k},m}\prec D_{{b_k},j}. 1\le k \le 3.
+        \end{equation}
+    \end{enumerate}
+        \item The time limit is $m+3$.
+        \item The sequences $\{c_i\}(0\le i\le m+2)$ of processors limits
+        \begin{equation}
+            \begin{aligned}
+            c_i&=2m+2~~~~~~~~~~~~2\le i \le m\\
+            c_0&=m~~~~~~~~~~~~~~~~~c_1=2m+1\\
+            c_{m+1}&=n+m+1~~~~~~~c_{m+2}=6n
+            \end{aligned}
+        \end{equation}
+\end{enumerate}
+Here we prove the problem constructed above is equal to the given $\textbf{3-SAT}$ problem.\\
+    Exactly, we only need to prove for above problem, there exists 
+    a total function $\mathbf{f}$ from $\mathbb{S}$ to $\{0, 1,..., m+2\}$ that satisfies the condition $\Leftrightarrow$ for each $D_i=D_i=z_{b_1}\vee z_{b_2}\vee z_{b_3}$, at least one of the literals $z_{b_k}$, $f(z_{b_k,0})=0$.Then if $z_{b_k,0}=0$,in $\textbf{P3}$, let $z_{b_k}=\textbf{True}$,so for each clause, $D_i=\textbf{True}$.\\
+    To prove this, we have several steps.\\
+    Firstly, we may not execute both $x_{i,0}$ and $\overline{x}_{i,0}$ at time $0,1\le i\le m$. Assume $\exists i,f(x_{i,0})=f(\overline{x}_{i,0})=0$. Since $c_0=m$, there exists $j$ that $f(x_{i,0})=f(\overline{x}_{i,0})\ge 1$, which means $f(y_i)>j$  and $f(\overline{y_i})>j$. Then we count the maximum number of tasks $z$ that $f(z)\le j$, which is consist of two parts:
+    \begin{enumerate}
+        \item For every $z_i$.If $f(z_{i,0})$,there are $z_{i,0}\dots z_{i,j}$, else there are $z_{i,0}\dots z_{i,j-1}$. Since there are at most $m$ of $z_i$ satisfies $f(z_{i,0})=1$, the total number of tasks $\le m*(2j+1)$.
+        \item $y_1,\overline{y_1},\dots, y_{i-1},\overline{y_{i-1}}$, the total number $\le 2*(j-1)$.
+    \end{enumerate}
+    So the total number of tasks $\le m*(2j+1)+2*(j-1)=2mj+2j+m-1$. However,
+    \begin{equation}
+        \sum_{i=0}^{j}=2mj+2j+m-1\ge2mj+2j+m-2
+    \end{equation}
+    This is against the requirement that there are $c_i$ tasks executed at time $i$.\\
+    Secondly,at time $1\le j\le m$, if $f(x_{i,0})=0$, we execute $x_{i,j}$,otherwise we execute $x_{i,j-1}$. Moreover, if $f(x_{i,0})=0$,we must execute $y_i$ at time $t$, otherwise we execute $y_i$ at time $t+1$.\\
+    Thirdly, at time $m+1$, we need execute remain m number of $z_{i,m}$. Because $c_{m+1}=m+n+1$, we must execute $n$ of $D_{i,j}$, and the other $D_{i,j}$ must be executed at time $m+2$, otherwise we are not able to finish all the tasks by the end of $m+3$.\\
+    Lastly,if $\exists D_i=z_{b_1}\vee z_{b_2}\vee z_{b_3}=\textbf{False}$, $z_{b_1}=z_{b_2}=z_{b_3}=\textbf{False}$, so $f(z_{b_1})>1,f(z_{b_2})>1,f(z_{b_3})>1$, which means we are not able to assign $D_i$ at time $t+1$.As a result, we cannot finish the task by the end of time $m+3$.\\
+    From the above steps, we conclude that there exists a instance satisfies  $\textbf{3-SAT}\Leftrightarrow$ there exists a function $f$ from $\mathbb{S}$ to $\{0,1,\dots,m+2\}$ satisfies the above condition. In the end, we have already proved $\textbf{P3}\preceq_p \textbf{P2}$.
+    
+    

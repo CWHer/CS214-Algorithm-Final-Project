@@ -1,0 +1,29 @@
+\subsection{Notations of the Original Problem}
+In order to formulate the original problem, we need to give the corresponding notations. We assume that we now have a set of jobs in the $\mathcal{K} = \{1,2,\cdots,K\}$ to schedule. There are $J$ DCs which are denoted by $\mathcal{D} = \{1,2,\cdots,J\}$ and the number of slots in DC $j\in\mathcal{D}$ is $a_j$. Besides, each job $k\in\mathcal{K}$ has a set of tasks $\mathcal{T}_k = \{1,2,\cdots,n_k\}$. The set of the source DCs of task $i$ of job $k$ is $S_i^k$ and the set of the task $q$ of job $k$ which provides data required by task $i$ of job $k$ is $R_i^k$. If the source DC is $s$, the corresponding amount of data is $d_i^{k,s}$. Then, we denote the data transferring time and executing time of task $i$ of job $k$ when it is assigned to DC $j$ as $c_{i,j}^k$ and $e_{i,j}^k$ respectively and the bandwidth from DC $s$ to DC $j$ is $b_{s,j}$. From our previous assumption, we have
+\begin{equation}
+    c_{i,j}^k = \max_{s\in S^k_i} \frac{d_{i}^{k,s}}{b_{s,j}}
+\end{equation}
+
+If we define $x_{i,j}^k$ that indicates whether task $i$ of job $k$ is assigned to DC $j$ and $s_i^k$ as the time task $i$ of job $k$ is put into the slot, we have the completion time of task $i$ of job $k$ is
+\begin{equation}
+    f_i^k = s_i^k+ \sum_{j\in \mathcal{D}} x_{i,j}^k(c_{i,j}^k+e_{i,j}^k)
+\end{equation}
+
+And the completion time of job $k$ is
+\begin{equation}
+    \tau_k = \max_{i\in\mathcal{T}_k} f_i^k
+\end{equation}
+
+One task can be assigned to one and only one DC and each DC has limited slots at any time $t$, so we can derive an optimization problem where $\text{[   ]}$ is defined as a boolean function which is 1 if the inside statement is true and otherwise 0.
+\begin{align}
+        \textbf{lexmin}_{x} \quad& \mathbf{f} = (\tau_1,\tau_2,\cdots,\tau_k)\\
+    s.t. \quad & \tau_k = \max_{i\in\mathcal{T}_k} f_i^k,\forall k\in\mathcal{K}\\
+    & f_i^k = s_i^k+ \sum_{j\in \mathcal{D}} x_{i,j}^k(c_{i,j}^k+e_{i,j}^k), \forall i \in \mathcal{T}_k,\forall k \in \mathcal{K}\\
+    &\sum_{k\in\mathcal{K}}\sum_{i\in\mathcal{T}_k} x_{i,j}^k[s_i^k\le t< f_i^k]\le a_j, \forall j \in \mathcal{D}, \forall t\ge 0\\
+    & f_q^k\le s_i^k, \forall q\in R_i^k,\forall i \in \mathcal{T}_k,\forall k \in \mathcal{K}\\
+    &\sum_{j\in\mathcal{D}}x_{i,j}^k = 1,\forall i \in\mathcal{T}_k,\forall k\in\mathcal{K}\\
+    & x_{i,j}^k \in \{0,1\}, \forall i \in \mathcal{T}_k,\forall{j}\in\mathcal{D},\forall k \in \mathcal{K}
+\end{align}
+
+According to the definition of \emph{lexmin}, we can solve this optimization problem using the algorithm in (\ref{max-min}) to maintain max-min fairness.
+% \newpage

@@ -1,0 +1,13 @@
+
+
+\subsection{Assumption}
+
+\begin{enumerate}
+    \item If there are idle slots in DCs and waiting tasks in ready queue, it would be better to assign tasks to idle slots. In other words, the bandwidth between different DC should not differ too much, so that it is better to wait some DC with higher bandwidth than transferring data to others.
+    \item As DCs are not fully-connected, we implement Floyd Algorithm to compute the bandwidth between any DC pairs. Here new bandwidth is the lowest bandwidth along the path. Floyd transition function is  
+    \begin{equation*}
+        b_{i,j}=\max_{k\in V} \{ \min\{b_{i,k},b_{k,j}\} \}
+    \end{equation*}
+    
+    \item Bandwidths are independent to tasks. That is, different tasks do not share bandwidth when transferring simultaneously.  
+\end{enumerate}

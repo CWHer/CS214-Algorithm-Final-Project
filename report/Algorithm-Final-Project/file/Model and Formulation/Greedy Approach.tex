@@ -1,0 +1,13 @@
+\subsubsection{Greedy Approach}\label{Greedy Approach}
+~
+
+Greedy Approach stems from a very natural intuition that we can schedule tasks to the idle slots with the shortest data transferring time, so that the sum completion time of each job in this small ``stage'' is also relatively short. 
+
+
+    
+
+\textbf{Procedure}. Compute a feasible assignment with shortest time. Bring this assignment into effect and repeat until all slots are full or all tasks have been assigned.
+
+\textbf{Time Complexity}. We use priority queue to compute assignment with shortest time in $O(\log (|J|m))$. Thus, the time complexity is $O(m\log (|J|m))$. 
+
+However, the greedy approach does not take max-min fairness into consideration. That is to say, it may improve the performances of some tasks while worsen others to achieve a relatively short sum completion time, which contradicts a lot with max-min fairness.
